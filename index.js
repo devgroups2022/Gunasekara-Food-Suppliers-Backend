@@ -201,12 +201,12 @@ app.post("/fuel", (req, res) => {
   client.end;
 });
 
-// PURCHASING whatsapp balanna
+// PURCHASING
 //add purchase data
 app.post("/purchase", (req, res) => {
   const purchase = req.body;
-  let insertQuery = `insert into purchase(id, p_from, number, rp, r_price, br, b_price, bh, bh_price, peacock, p_price, discription) 
-                       values('${purchase.id}', '${purchase.p_from}','${purchase.number}','${purchase.rp}','${purchase.r_price}','${purchase.br}','${purchase.b_price}','${purchase.bh}','${purchase.bh_price}','${purchase.peacock}','${purchase.p_price}','${purchase.discription}')`;
+  let insertQuery = `insert into purchase(id, p_from, number, rp, r_price, tot_rp, br, br_price, tot_br, bh, bh_price, tot_bh, peacock, pe_price, tot_pe, tot_price, discription) 
+  values('${purchase.id}', '${purchase.p_from}','${purchase.number}','${purchase.rp}','${purchase.r_price}','${purchase.tot_rp}','${purchase.br}','${purchase.br_price}','${purchase.tot_br}','${purchase.bh}','${purchase.bh_price}','${purchase.tot_bh}','${purchase.peacock}','${purchase.pe_price}','${purchase.tot_pe}','${purchase.tot_price}','${purchase.discription}')`;
 
   client.query(insertQuery, (err, result) => {
     if (!err) {
@@ -241,12 +241,12 @@ app.get("/purchase/:id", (req, res) => {
   client.end;
 });
 
-// SELLING DATA me tika hadanna
+// SELLING
 //add selling data
 app.post("/sale", (req, res) => {
   const sell = req.body;
-  let insertQuery = `insert into sell(id, s_to, number, rp, r_price, br, b_price, bh, bh_price, peacock, p_price, discription) 
-                       values('${sell.id}', '${sell.s_to}','${sell.number}','${sell.rp}','${sell.r_price}','${sell.br}','${sell.b_price}','${sell.bh}','${sell.bh_price}','${sell.peacock}','${sell.p_price}','${sell.discription}')`;
+  let insertQuery = `insert into sell(id, s_to, number, rp, r_price, tot_rp, br, br_price, tot_br, bh, bh_price, tot_bh, peacock, pe_price, tot_pe, tot_price, discription) 
+                       values('${sell.id}', '${sell.s_to}','${sell.number}','${sell.rp}','${sell.r_price}','${sell.tot_rp}','${sell.br}','${sell.br_price}','${sell.tot_br}','${sell.bh}','${sell.bh_price}','${sell.tot_bh}','${sell.peacock}','${sell.pe_price}','${sell.tot_pe}','${sell.tot_price}','${sell.discription}')`;
 
   client.query(insertQuery, (err, result) => {
     if (!err) {
@@ -410,7 +410,7 @@ app.delete("/customer/:id", (req, res) => {
 // ATTENDENCE
 // get attendence
 app.get("/attendence", (req, res) => {
-  client.query(`Select * from attendence ORDER BY id DESC`, (err, result) => {
+  client.query(`Select * from attendence ORDER BY cod DESC`, (err, result) => {
     if (!err) {
       res.send(result.rows);
     }
@@ -421,8 +421,8 @@ app.get("/attendence", (req, res) => {
 // mark attendence
 app.post("/attendence", (req, res) => {
   const attendence = req.body;
-  let insertQuery = `insert into attendence(id, date, time) 
-                       values('${attendence.id}', '${attendence.date}', '${attendence.time}')`;
+  let insertQuery = `insert into attendence(cod, date, time, discription) 
+                       values('${attendence.cod}', '${attendence.date}', '${attendence.time}', '${attendence.discription}')`;
 
   client.query(insertQuery, (err, result) => {
     if (!err) {
